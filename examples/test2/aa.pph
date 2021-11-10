@@ -1,0 +1,7 @@
+echo "test"
+
+$test = [
+    "aa",
+    "aa",
+    "aa"
+]

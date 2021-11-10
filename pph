@@ -1,0 +1,26 @@
+<?php
+require "./vendor/autoload.php";
+
+if(php_sapi_name() !== 'cli') exit;
+
+use Core\Transpiler;
+use Minicli\App;
+use Minicli\Command\CommandCall;
+use Minicli\Exception\CommandNotFoundException;
+
+$app = new App([
+    'app_path' => __DIR__,
+    'theme' => '\Unicorn',
+    'debug' => false
+]);
+
+$app->registerCommand('compile', function (CommandCall $input) use($app) {
+    if($input->hasParam("in") && $input->hasParam("out")) {
+        Transpiler::compile($app->getPrinter(), $input->getParam("in"), $input->getParam("out"));
+        $app->getPrinter()->success("Success!");
+    } else {
+        $app->getPrinter()->error("You need to provide the in and out arguments.");
+    }
+});
+
+$app->runCommand($argv);

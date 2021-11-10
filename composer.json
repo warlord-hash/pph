@@ -1,0 +1,14 @@
+{
+    "name": "warlord-hash/pph",
+    "description": "A simple PHP transpiler to make writing code easier",
+    "keywords": ["cli", "php transpiler", "pph"],
+    "require": {
+        "minicli/minicli": "^2.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Core\\": "./core"
+        }
+    },
+    "bin": ["pph"]
+}

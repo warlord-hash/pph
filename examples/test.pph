@@ -1,0 +1,12 @@
+echo "hello"
+echo "test"
+
+#helper-end
+class Test {
+    fun test() {
+        echo "hi"
+    }
+}
+
+$test = new Test()
+$test->test()
