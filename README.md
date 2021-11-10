@@ -40,7 +40,7 @@ $test->test()
 ```
 
 From that example, we can say that:
-* PHP tags (``<?php`` and ``?>``) are **no longer required to be put in the file**. PPH's transpiler will put them in for you.
+* PHP tags (``<?php`` and ``?>``) are **no longer required to be written in the file**. PPH's transpiler will put them in for you.
 * Semicolons are no longer required, but can be optionally inputted at the end of any line.
 * Functions are now written as "fun" (although can still be written as "function")
 
