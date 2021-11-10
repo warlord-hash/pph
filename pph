@@ -16,7 +16,10 @@ $app = new App([
 
 $app->registerCommand('compile', function (CommandCall $input) use($app) {
     if($input->hasParam("in") && $input->hasParam("out")) {
-        Transpiler::compile($app->getPrinter(), $input->getParam("in"), $input->getParam("out"));
+        if($input->hasFlag("alt-explode")) $alt_explode = true;
+        else $alt_explode = false;
+
+        Transpiler::compile($app->getPrinter(), $input->getParam("in"), $input->getParam("out"), $alt_explode);
         $app->getPrinter()->success("Success!");
     } else {
         $app->getPrinter()->error("You need to provide the in and out arguments.");

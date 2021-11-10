@@ -5,3 +5,7 @@ $test = [
     "aa",
     "aa"
 ]
+
+#php-end
+
+<div>Test</div>

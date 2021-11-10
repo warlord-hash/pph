@@ -15,10 +15,15 @@ class Transpiler {
     ];
 
     public static $split;
+    public static $phpEnd = false;
 
-    public static function openFile($name) {
+    public static function openFile($alt = false, $name) {
         self::$code = file_get_contents($_SERVER["DOCUMENT_ROOT"] . "$name.pph");
-        self::$split = explode(PHP_EOL, self::$code);
+
+        if($alt) self::$split = explode("\n", self::$code);
+        else self::$split = explode(PHP_EOL, self::$code);
+
+        self::$phpEnd = false;
     }
 
     public static function phpTags() {
@@ -37,7 +42,7 @@ class Transpiler {
             if(strlen($b) == 0) {
                 $b = $b . PHP_EOL;
             } else {
-                $use = true;
+                $use = (self::$phpEnd) ? false : true;
 
                 foreach(self::$semicolonAwareChars as $i) {
                     if(strpos($b, $i) !== FALSE) {
@@ -46,9 +51,14 @@ class Transpiler {
                     }
                 }
 
+                if(strpos($b, "#php-end") !== FALSE) {
+                    self::$phpEnd = true;
+                    $b = PHP_EOL . "#helper-end" . PHP_EOL . $b;
+                }
+
                 if($in_array) $use = false;
 
-                if($use) $b = $b . ";" . PHP_EOL;
+                if($use) $b = str_replace("\r", "", $b) . ";" . PHP_EOL;
                 else $b = $b . PHP_EOL;
 
                 $newCode = $newCode . $b;
@@ -70,9 +80,15 @@ class Transpiler {
         if($stopped === FALSE) {
             self::$code = str_replace("fun", "function", self::$code);
         }
+
+        if(strpos(self::$code, "#php-end") !== FALSE) {
+            // weird solution i think
+            self::$code = str_replace("?>", "", self::$code);
+            self::$code = str_replace("#php-end", "?>", self::$code);
+        }
      }
 
-     public static function compile($printer, $inDir, $outDir) {
+     public static function compile($printer, $inDir, $outDir, $alt_method) {
          // yes im aware document_root wont work lol
          $files = glob($_SERVER["DOCUMENT_ROOT"] . $inDir . "/*.{pph}", GLOB_BRACE);
 
@@ -82,7 +98,7 @@ class Transpiler {
 
             $no_in = str_replace($inDir, "", $filename);
 
-            $code = self::openFile($filename);
+            $code = self::openFile($alt_method, $filename);
             self::addSemicolons();
             self::phpTags();
             self::helpers();
@@ -109,7 +125,7 @@ class Transpiler {
                 $filename = str_replace(".pph", "", $no_dir);
                 $no_in = str_replace($inDir, "", $filename);
 
-                $code = self::openFile($filename);
+                $code = self::openFile($alt_method, $filename);
                 self::addSemicolons();
                 self::phpTags();
                 self::helpers();
