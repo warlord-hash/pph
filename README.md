@@ -2,7 +2,7 @@
 A simple transpiler that makes writing PHP easier.
 
 ## Reminder
-PPH is currently in development, so there is a possibility of encountering bugs.I also want to add more features so people can use for example more helpers, or just have a better experience with PPH, but I decided to release it like this for now.
+PPH is currently in development, so there is a possibility of encountering bugs. I also want to add more features so people can use for example more helpers, or just have a better experience with PPH, but I decided to release it like this for now.
 
 ## How to install
 To install PPH (the CLI is built in), create a directory and then clone the repository by running ``git clone https://github.com/warlord-hash/pph.git``.
