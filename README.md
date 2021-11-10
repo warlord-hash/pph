@@ -16,6 +16,11 @@ To use the CLI and compile a file, please use this command:
 php C:/clonedRepoDirectoryHere/pph compile in=srcfolderhere out=compiledfilesdirectory --alt-explode
 ```
 
+or, you can use it like this (if you opened powershell in the directory you cloned the repository to, or if you just used the cd command to get to it):
+```
+php pph compile in=srcfolderhere out=compiledfilesdirectory --alt-explode
+```
+
 Explanation:
 * ``php`` - PHP.exe as provided in the PATH envieroment variable
 * ``C:/clonedRepoDirectoryHere/pph`` - the directory where you cloned the repository into
