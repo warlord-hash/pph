@@ -16,9 +16,7 @@ $app = new App([
 
 $app->registerCommand('compile', function (CommandCall $input) use($app) {
     if($input->hasParam("in") && $input->hasParam("out")) {
-        if($input->hasFlag("alt-explode")) $alt_explode = true;
-        else $alt_explode = false;
-
+        $alt_explode = ($input->hasFlag("alt-explode"));
         Transpiler::compile($app->getPrinter(), $input->getParam("in"), $input->getParam("out"), $alt_explode);
         $app->getPrinter()->success("Success!");
     } else {

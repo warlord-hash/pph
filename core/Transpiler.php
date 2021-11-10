@@ -53,7 +53,7 @@ class Transpiler {
 
                 if(strpos($b, "#php-end") !== FALSE) {
                     self::$phpEnd = true;
-                    $b = PHP_EOL . "#helper-end" . PHP_EOL . $b;
+                    $b = PHP_EOL . "#helper-stop" . PHP_EOL . $b;
                 }
 
                 if($in_array) $use = false;
