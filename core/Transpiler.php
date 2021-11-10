@@ -77,7 +77,7 @@ class Transpiler {
             }
         }
 
-        if($stopped === FALSE) {
+        if($stopped === FALSE && self::$phpEnd === FALSE) {
             self::$code = str_replace("fun", "function", self::$code);
         }
 
