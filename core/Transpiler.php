@@ -17,7 +17,7 @@ class Transpiler {
     public static $split;
     public static $phpEnd = false;
 
-    public static function openFile($alt = false, $name) {
+    public static function openFile($name, $alt = false) {
         self::$code = file_get_contents($_SERVER["DOCUMENT_ROOT"] . "$name.pph");
 
         if($alt) self::$split = explode("\n", self::$code);
@@ -98,7 +98,7 @@ class Transpiler {
 
             $no_in = str_replace($inDir, "", $filename);
 
-            $code = self::openFile($alt_method, $filename);
+            self::openFile($filename, $alt_method);
             self::addSemicolons();
             self::phpTags();
             self::helpers();
@@ -125,7 +125,7 @@ class Transpiler {
                 $filename = str_replace(".pph", "", $no_dir);
                 $no_in = str_replace($inDir, "", $filename);
 
-                $code = self::openFile($alt_method, $filename);
+                self::openFile($filename, $alt_method);
                 self::addSemicolons();
                 self::phpTags();
                 self::helpers();
